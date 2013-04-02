@@ -4,7 +4,13 @@ Feature: Feedback
   When colors & positions are correct return black pegs
   When duplicate colors are correct only return one peg
 
+  Background:
+    Given there is a code "R Y B G"
+
   Scenario: When nothing is correct
-  Given there is a code "R Y B G"
-  When I guess "W O P C"
-  Then the feedback should be "- - - -"
+    When I guess "W O P C"
+    Then the feedback should be "- - - -"
+
+  Scenario: When colors are correct
+    When I guess "Y W R P"
+    Then the feedback should be "W W - -"
