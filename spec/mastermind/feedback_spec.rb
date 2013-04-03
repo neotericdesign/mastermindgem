@@ -45,7 +45,13 @@ module Mastermind
 
         pegs.should == ["W"]
       end
-      it "returns nil for no correct colors"
+
+      it "returns empty array  for no correct colors" do
+        feedback = Feedback.new(code, "O W P C")
+        pegs     = feedback.white_pegs
+
+        pegs.should == []
+      end
     end
   end
 
