@@ -19,15 +19,22 @@ module Mastermind
     def no_pegs
       %w(- - - -)
     end
+
     def add_pegs(pegs)
-      black_pegs = []
-      white_pegs = []
+      black_pegs   = []
+      white_pegs   = []
+      found_colors = []
 
       guess.each_with_index do |g, i|
         if code[i] == g
           black_pegs << 'B'
-        elsif code.include?(g)
+          found_colors << g
+          if found_colors.include?(g)
+            white_pegs.pop
+          end
+        elsif code.include?(g) && !found_colors.include?(g)
           white_pegs << 'W'
+          found_colors << g
         end
       end
 
