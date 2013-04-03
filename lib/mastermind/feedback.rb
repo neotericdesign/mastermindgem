@@ -10,7 +10,11 @@ module Mastermind
     def pegs
       returned_pegs = no_pegs
 
-      add_pegs(returned_pegs)
+      evaluate_guess!
+
+      (black_pegs + white_pegs).each_with_index do |peg, i|
+        returned_pegs[i] = peg
+      end
 
       returned_pegs.join(' ')
     end
@@ -20,27 +24,28 @@ module Mastermind
       %w(- - - -)
     end
 
-    def add_pegs(pegs)
-      black_pegs   = []
-      white_pegs   = []
-      found_colors = []
-
+    def evaluate_guess!
       guess.each_with_index do |g, i|
         if code[i] == g
           black_pegs << 'B'
-          found_colors << g
-          if found_colors.include?(g)
-            white_pegs.pop
-          end
-        elsif code.include?(g) && !found_colors.include?(g)
+          white_pegs.pop #Keep peg from being marked both
+          marked_pegs << g
+        elsif code.include?(g) && !marked_pegs.include?(g)
           white_pegs << 'W'
-          found_colors << g
         end
       end
+    end
 
-      (black_pegs + white_pegs).each_with_index do |peg, i|
-        pegs[i] = peg
-      end
+    def black_pegs
+      @black_pegs ||= []
+    end
+
+    def white_pegs
+      @white_pegs ||= []
+    end
+
+    def marked_pegs
+      @marked_pegs ||= []
     end
   end
 end

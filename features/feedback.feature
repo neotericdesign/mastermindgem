@@ -36,3 +36,5 @@ Feature: Feedback
     Then the feedback should be "B W - -"
     When I guess "R B R Y"
     Then the feedback should be "B W W -"
+    When I guess "Y R R B"
+    Then the feedback should be "W W W W"
