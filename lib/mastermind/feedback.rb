@@ -14,6 +14,10 @@ module Mastermind
         white_pegs.each_with_index do |white_peg, i|
           returned_pegs[i] = white_peg
         end
+
+       black_pegs.each_with_index do |black_peg, i|
+          returned_pegs[i] = black_peg
+        end
       end
 
       returned_pegs.join(' ')
@@ -30,6 +34,17 @@ module Mastermind
 
       code.each do |c|
         pegs << 'W' if guess.include?(c)
+      end
+
+      pegs
+    end
+
+    def black_pegs
+      pegs = []
+
+
+      guess.split(' ').each_with_index do |g,i|
+        pegs << 'B' if code[i] == g
       end
 
       pegs

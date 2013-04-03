@@ -22,6 +22,14 @@ module Mastermind
           feedback.pegs.should == "W - - -"
         end
       end
+
+      context "When there are 2 correct colors 1 correct position" do
+        it "returns 1 black peg and 1 white peg" do
+          feedback = Feedback.new(code, "R B P W")
+
+          feedback.pegs.should == "B W - -"
+        end
+      end
     end
 
     describe "#no_correct_colors?" do
@@ -53,6 +61,21 @@ module Mastermind
         pegs.should == []
       end
     end
-  end
+    describe "#black_pegs" do
+      it "returns a B for each correct position" do
+        feedback = Feedback.new(code, "R P W C")
+        pegs     = feedback.black_pegs
 
+        pegs.should == ["B"]
+      end
+
+      it "returns empty array for no correct position" do
+        feedback = Feedback.new(code, "O W P C")
+        pegs     = feedback.black_pegs
+
+        pegs.should == []
+      end
+    end
+
+  end
 end
